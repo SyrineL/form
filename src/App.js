@@ -15,20 +15,36 @@ class App extends React.Component {
       passwordIsValid: false,
       isSubmitted: false
     }
+    this.handleEmailChange = this.handleEmailChange.bind(this)
+    this.handlePasswordChange = this.handlePasswordChange.bind(this)
   }
 
-handleEmailChange= (event) => {
-  this.setState({email : this.state.email = event.target.value})
+  handleEmailChange = (e) => {
+    this.setState({ email: e.target.value })
+    const regex = /[\w\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(e.target.value)
+
+
+    if (regex) {
+        this.setState({ emailIsValid: true })
+    }
 }
-handlePasswordChange = (event) => {
-  this.setState({password : this.state.password = event.target.value})
-}
-handleRememberMeChange = (event) => {
-  this.setState({rememberMe : this.state.rememberMe = event.target.value})
-}
-handleSubmit = (event) => {
-  this.setState({isSubmitted : this.state.isSubmitted = event.target.value})
-}
+    handlePasswordChange = (e) => {
+      this.setState({ password: e.target.value })
+
+      if (e.target.value.length > 5) {
+          this.setState({ passwordIsValid: true })
+      }
+    }
+
+    handleRememberMe = (e) => {
+      if (e) {
+          this.setState({ rememberMe: true })
+      }
+    }
+
+    onSubmit = (e) => {
+      e.preventDefault()
+    }
 
   render() {
   return (
@@ -44,12 +60,11 @@ handleSubmit = (event) => {
           <Input type="password" onChange={this.handlePasswordChange } />
           </label>
           <label>
-          <Input type="checkbox" onChange={this.handleRememberMeChange } />
+          <Input type="checkbox" onChange={this.handleRememberMe } />
             <p>Remember Me</p>
           </label>
           <label>
-            
-          <Input type="submit" onChange={this.handleSubmit } />
+          <Input type="submit" onChange={this.onSubmit } />
           </label>
         </form>
     </>

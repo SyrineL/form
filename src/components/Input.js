@@ -3,10 +3,10 @@ import React from "react"
 class Input extends React.Component {
 
   render() {
-      const {type, onChange} = this.props
+      const {type, onChange, isValid} = this.props
     return (
       <>
-        <input type={type}  onChange={onChange}/>
+        <input type={type}  onChange={onChange} isValid={isValid}/>
       </>
     )
   }
